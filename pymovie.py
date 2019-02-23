@@ -8,6 +8,7 @@ url = 'http://www.imdb.com/chart/top'
 response = requests.get(url)
 soup = BeautifulSoup(response.text, 'lxml')
 
+
 movies = soup.select('td.titleColumn')
 links = [a.attrs.get('href') for a in soup.select('td.titleColumn a')]
 crew = [a.attrs.get('title') for a in soup.select('td.titleColumn a')]
@@ -34,4 +35,4 @@ for index in range(0, len(movies)):
     imdb.append(data)
 
 for item in imdb:
-    print(item['place'], '-', item['movie_title'], '('+item['year']+') -', 'Starring:', item['star_cast'])
+    print(item['place'], '*', round(float(item['rating']), 2), '*', item['movie_title'], '('+item['year']+') *', 'Starring:', item['star_cast'])
